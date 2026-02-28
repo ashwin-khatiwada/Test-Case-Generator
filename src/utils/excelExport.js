@@ -5,6 +5,26 @@
 import ExcelJS from 'exceljs';
 import { saveAs } from 'file-saver';
 import { formatDate } from './helpers';
+import logoUrl from '../assets/lf-logo.svg';
+
+async function getLogoBase64() {
+    return new Promise((resolve, reject) => {
+        const img = new Image();
+        img.onload = () => {
+            const scale = 2; // scale for better resolution
+            const canvas = document.createElement('canvas');
+            canvas.width = (img.width || 195) * scale;
+            canvas.height = (img.height || 37) * scale;
+            const ctx = canvas.getContext('2d');
+            ctx.scale(scale, scale);
+            ctx.drawImage(img, 0, 0);
+            const dataUrl = canvas.toDataURL('image/png');
+            resolve(dataUrl.split(',')[1]);
+        };
+        img.onerror = reject;
+        img.src = logoUrl;
+    });
+}
 
 export async function exportTestPlanToExcel(plan) {
     if (!plan) return;
@@ -13,6 +33,10 @@ export async function exportTestPlanToExcel(plan) {
     const worksheet = workbook.addWorksheet('Test Suite');
 
     // Header section with plan metadata
+    const row1 = worksheet.addRow([]); // Row 1 for logo
+    const row2 = worksheet.addRow([]); // Row 2 for logo blanks
+    row1.height = 35; // Make logo row bigger
+    row2.height = 35;
     worksheet.addRow(['Test Suite Report']);
     worksheet.addRow([]);
     worksheet.addRow(['Test Suite Name:', plan.name]);
@@ -27,22 +51,39 @@ export async function exportTestPlanToExcel(plan) {
     worksheet.addRow([]);
 
     // Merge Cells for Headers
-    worksheet.mergeCells('A1:J1');
-    worksheet.mergeCells('A11:J11');
+    worksheet.mergeCells('A1:J2');
+    worksheet.mergeCells('A3:J3');
+    worksheet.mergeCells('A13:J13');
+
+    try {
+        const base64Image = await getLogoBase64();
+        if (base64Image) {
+            const imageId = workbook.addImage({
+                base64: base64Image,
+                extension: 'png',
+            });
+            worksheet.addImage(imageId, {
+                tl: { col: 0.2, row: 0.5 }, // Left-aligned with slight margin, vertically centered across the 2 rows
+                ext: { width: 250, height: 48 } // Slightly larger
+            });
+        }
+    } catch (e) {
+        console.error("Failed to add logo to excel", e);
+    }
 
     // Style Main Titles
-    const title1 = worksheet.getCell('A1');
+    const title1 = worksheet.getCell('A3');
     title1.font = { bold: true, size: 16, color: { argb: 'FFFFFFFF' } };
     title1.fill = { type: 'pattern', pattern: 'solid', fgColor: { argb: 'FF079046' } }; // Brand green
     title1.alignment = { horizontal: 'center', vertical: 'middle' };
 
-    const title2 = worksheet.getCell('A11');
+    const title2 = worksheet.getCell('A13');
     title2.font = { bold: true, size: 14, color: { argb: 'FFFFFFFF' } };
     title2.fill = { type: 'pattern', pattern: 'solid', fgColor: { argb: 'FF079046' } };
     title2.alignment = { horizontal: 'center', vertical: 'middle' };
 
     // Styling Metadata Keys (bold + blue background) and Values (borders)
-    const metaRows = [3, 4, 5, 6, 7, 8, 9];
+    const metaRows = [5, 6, 7, 8, 9, 10, 11];
     metaRows.forEach((rowIdx) => {
         const keyCell = worksheet.getCell(`A${rowIdx}`);
         keyCell.font = { bold: true, color: { argb: 'FFFFFFFF' } }; // White text
@@ -72,7 +113,7 @@ export async function exportTestPlanToExcel(plan) {
     ];
     worksheet.addRow(testCasesHeader);
 
-    const headerRow = worksheet.getRow(13);
+    const headerRow = worksheet.getRow(15);
     headerRow.eachCell((cell) => {
         cell.font = { bold: true, color: { argb: 'FFFFFFFF' } };
         cell.fill = {
