@@ -34,23 +34,15 @@ Before setting up the project locally, ensure you have the following installed o
    git clone https://github.com/ashwin-khatiwada/Test-Case-Generator.git
    cd Test-Case-Generator
    ```
-
-2. **Navigate to the project directly** (if already on your machine):
-   ```bash
-   cd "Test Case"
-   ```
-
-3. **Install dependencies**:
+2. **Install dependencies**:
    ```bash
    npm install
    ```
-
-4. **Start the development server**:
+3. **Start the development server**:
    ```bash
    npm run dev
    ```
-
-5. **Open the application**:
+4. **Open the application**:
    Open your browser and navigate to the local server URL provided in the terminal (usually `http://localhost:5173`).
 
 ## Building for Production
