@@ -1,4 +1,5 @@
-import { useState, useCallback, useEffect } from 'react';
+import { useState, useCallback } from 'react';
+import { Routes, Route, useNavigate, useParams } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import ToastContainer from './components/Toast';
 import ConfirmModal from './components/ConfirmModal';
@@ -7,29 +8,23 @@ import AddEditForm from './components/AddEditForm';
 import ViewScreen from './components/ViewScreen';
 import { useTestPlans } from './hooks/useTestPlans';
 import { useToast } from './hooks/useToast';
+
 export default function App() {
   const { testPlans, addPlan, updatePlan, deletePlan, getPlanById } = useTestPlans();
   const { toasts, showToast } = useToast();
-
-  const [screen, setScreen] = useState('dashboard');
-  const [activeId, setActiveId] = useState(null);
   const [modal, setModal] = useState(null);
+  const navigate = useNavigate();
 
-  const navigateTo = useCallback((target, id = null) => {
-    setScreen(target);
-    setActiveId(id);
-  }, []);
-
-  const handleSave = useCallback((formData) => {
-    if (activeId) {
-      updatePlan(activeId, formData);
+  const handleSave = useCallback((formData, id = null) => {
+    if (id) {
+      updatePlan(id, formData);
       showToast('Test Plan Updated Successfully');
     } else {
       addPlan(formData);
       showToast('Test Plan Saved Successfully');
     }
-    navigateTo('dashboard');
-  }, [activeId, addPlan, updatePlan, showToast, navigateTo]);
+    navigate('/');
+  }, [addPlan, updatePlan, showToast, navigate]);
 
   const handleDeleteRequest = useCallback((id) => {
     setModal({
@@ -43,24 +38,9 @@ export default function App() {
     });
   }, [deletePlan, showToast]);
 
-  const renderScreen = () => {
-    switch (screen) {
-      case 'dashboard':
-        return <Dashboard testPlans={testPlans} onNavigate={navigateTo} onDelete={handleDeleteRequest} />;
-      case 'add':
-        return <AddEditForm isEditing={false} onSave={handleSave} onCancel={() => navigateTo('dashboard')} />;
-      case 'edit':
-        return <AddEditForm plan={getPlanById(activeId)} isEditing={true} onSave={handleSave} onCancel={() => navigateTo('dashboard')} />;
-      case 'view':
-        return <ViewScreen plan={getPlanById(activeId)} onBack={() => navigateTo('dashboard')} onEdit={(id) => navigateTo('edit', id)} onExportSuccess={() => showToast('Export Completed')} />;
-      default:
-        return null;
-    }
-  };
-
   return (
     <div id="app" className="h-full w-full overflow-auto text-slate-700 min-h-screen">
-      <Navbar onNavigate={navigateTo} showAddButton={screen === 'dashboard'} />
+      <Navbar />
       <ToastContainer toasts={toasts} />
 
       {modal && (
@@ -73,8 +53,29 @@ export default function App() {
       )}
 
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        {renderScreen()}
+        <Routes>
+          <Route path="/" element={<Dashboard testPlans={testPlans} onDelete={handleDeleteRequest} />} />
+          <Route path="/add" element={<AddEditForm isEditing={false} onSave={(data) => handleSave(data)} onCancel={() => navigate('/')} />} />
+          <Route path="/edit/:id" element={<EditRoute getPlanById={getPlanById} onSave={handleSave} onCancel={() => navigate('/')} />} />
+          <Route path="/view/:id" element={<ViewRoute getPlanById={getPlanById} onExportSuccess={() => showToast('Export Completed')} />} />
+        </Routes>
       </main>
     </div>
   );
+}
+
+// Helper components for ID-based routes
+function EditRoute({ getPlanById, onSave, onCancel }) {
+  const { id } = useParams();
+  const plan = getPlanById(id);
+  if (!plan) return <div className="text-center py-20 text-slate-500 font-bold">Plan not found.</div>;
+  return <AddEditForm plan={plan} isEditing={true} onSave={(data) => onSave(data, id)} onCancel={onCancel} />;
+}
+
+function ViewRoute({ getPlanById, onExportSuccess }) {
+  const { id } = useParams();
+  const navigate = useNavigate();
+  const plan = getPlanById(id);
+  if (!plan) return <div className="text-center py-20 text-slate-500 font-bold">Plan not found.</div>;
+  return <ViewScreen plan={plan} onBack={() => navigate('/')} onEdit={(id) => navigate(`/edit/${id}`)} onExportSuccess={onExportSuccess} />;
 }

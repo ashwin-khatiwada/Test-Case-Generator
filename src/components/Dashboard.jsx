@@ -1,12 +1,14 @@
 import { useMemo, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { SearchIcon, ClipboardIcon } from './Icons';
 import StatsCards from './StatsCards';
 import TestPlanCard from './TestPlanCard';
 import { getGlobalStats } from '../utils/helpers';
 import logo from '../assets/lf-logo.svg';
 
-export default function Dashboard({ testPlans, onNavigate, onDelete }) {
+export default function Dashboard({ testPlans, onDelete }) {
     const [searchTerm, setSearchTerm] = useState('');
+    const navigate = useNavigate();
 
     const stats = useMemo(() => getGlobalStats(testPlans), [testPlans]);
 
@@ -60,7 +62,7 @@ export default function Dashboard({ testPlans, onNavigate, onDelete }) {
                         <h3 className="text-xl font-bold text-slate-700 mb-2">No Test Plans Yet</h3>
                         <p className="text-slate-500 mb-8 max-w-md mx-auto px-4">Get started by creating your first test plan to begin tracking your quality assurance metrics.</p>
                         <button
-                            onClick={() => onNavigate('add')}
+                            onClick={() => navigate('/add')}
                             className="bg-[#079046] hover:bg-[#067c3b] text-white px-8 py-3.5 rounded-2xl font-black transition-all duration-200 shadow-xl shadow-[#079046]/20 active:scale-95"
                         >
                             Create Your First Test Plan
@@ -82,8 +84,8 @@ export default function Dashboard({ testPlans, onNavigate, onDelete }) {
                             <TestPlanCard
                                 key={plan.id}
                                 plan={plan}
-                                onView={(id) => onNavigate('view', id)}
-                                onEdit={(id) => onNavigate('edit', id)}
+                                onView={(id) => navigate(`/view/${id}`)}
+                                onEdit={(id) => navigate(`/edit/${id}`)}
                                 onDelete={onDelete}
                             />
                         ))}
