@@ -27,19 +27,19 @@ export default function ViewScreen({ plan, onBack, onEdit, onExportSuccess }) {
                     </div>
                 </div>
                 <div className="flex gap-3">
-                    <button onClick={handleExport} className="px-4 py-2.5 bg-emerald-500 hover:bg-emerald-600 text-white rounded-xl font-medium transition-all duration-200 flex items-center gap-2 shadow-lg shadow-emerald-500/20">
+                    <button onClick={handleExport} className="px-5 py-2.5 bg-[#079046] hover:bg-[#067c3b] text-white rounded-xl font-bold transition-all duration-200 flex items-center gap-2 shadow-lg shadow-[#079046]/20">
                         <DownloadIcon className="w-5 h-5" /> Export Excel
                     </button>
-                    <button onClick={() => onEdit(plan.id)} className="px-4 py-2.5 bg-blue-500 hover:bg-blue-600 text-white rounded-xl font-medium transition-all duration-200 flex items-center gap-2 shadow-lg shadow-blue-500/20">
+                    <button onClick={() => onEdit(plan.id)} className="px-5 py-2.5 bg-slate-800 hover:bg-slate-900 text-white rounded-xl font-bold transition-all duration-200 flex items-center gap-2 shadow-lg shadow-slate-900/20">
                         <EditIcon className="w-5 h-5" /> Edit Plan
                     </button>
                 </div>
             </div>
 
             <div className="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden mb-8">
-                <div className="bg-gradient-to-r from-blue-500 to-blue-600 px-6 py-5">
+                <div className="bg-gradient-to-r from-[#079046] to-[#056d35] px-6 py-5">
                     <h3 className="text-xl font-bold text-white">{plan.name}</h3>
-                    <p className="text-blue-100 mt-1">Module: {plan.module}</p>
+                    <p className="text-white/80 mt-1">Module: {plan.module}</p>
                 </div>
                 <div className="p-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                     <DetailItem label="Tester" value={plan.tester || 'Not specified'} />
@@ -54,7 +54,7 @@ export default function ViewScreen({ plan, onBack, onEdit, onExportSuccess }) {
             </div>
 
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
-                <SummaryCard value={passed} label="Passed" color="bg-emerald-50 border-emerald-200 text-emerald-600" labelColor="text-emerald-700" />
+                <SummaryCard value={passed} label="Passed" color="bg-[#079046]/5 border-[#079046]/10 text-[#079046]" labelColor="text-[#079046]" />
                 <SummaryCard value={failed} label="Failed" color="bg-red-50 border-red-200 text-red-600" labelColor="text-red-700" />
                 <SummaryCard value={blocked} label="Blocked" color="bg-amber-50 border-amber-200 text-amber-600" labelColor="text-amber-700" />
                 <SummaryCard value={notTested} label="Not Tested" color="bg-slate-50 border-slate-200 text-slate-600" labelColor="text-slate-700" />
@@ -89,7 +89,7 @@ export default function ViewScreen({ plan, onBack, onEdit, onExportSuccess }) {
                         <tbody className="divide-y divide-slate-100 bg-white">
                             {testCases.map((tc) => {
                                 const rowColorClass =
-                                    tc.status === 'Passed' ? 'bg-emerald-50/50' :
+                                    tc.status === 'Passed' ? 'bg-[#079046]/[0.02]' :
                                         tc.status === 'Failed' ? 'bg-red-50/50' :
                                             tc.status === 'Blocked' ? 'bg-amber-50/50' :
                                                 'bg-slate-50/50';
@@ -97,7 +97,7 @@ export default function ViewScreen({ plan, onBack, onEdit, onExportSuccess }) {
                                 return (
                                     <tr key={tc.id} className={`${rowColorClass} hover:brightness-95 transition-all`}>
                                         <td className="px-4 py-4 align-middle text-center">
-                                            <span className="font-mono text-sm font-medium text-blue-600 bg-blue-50 px-2 py-1 rounded">{tc.id}</span>
+                                            <span className="font-mono text-sm font-bold text-[#079046] bg-[#079046]/5 px-2 py-1 rounded border border-[#079046]/10">{tc.id}</span>
                                         </td>
                                         <td className="px-4 py-4 align-middle text-slate-800 font-medium whitespace-pre-line text-sm">{tc.name}</td>
                                         <td className="px-4 py-4 align-middle text-slate-600 whitespace-pre-line text-sm">{tc.description}</td>

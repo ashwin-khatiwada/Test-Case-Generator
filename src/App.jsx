@@ -59,7 +59,7 @@ export default function App() {
   };
 
   return (
-    <div id="app" className="h-full w-full overflow-auto bg-slate-50 text-slate-700 min-h-screen">
+    <div id="app" className="h-full w-full overflow-auto text-slate-700 min-h-screen">
       <Navbar onNavigate={navigateTo} showAddButton={screen === 'dashboard'} />
       <ToastContainer toasts={toasts} />
 

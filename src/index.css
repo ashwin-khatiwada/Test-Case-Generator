@@ -46,7 +46,8 @@ input:focus,
 textarea:focus,
 select:focus {
   outline: none;
-  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+  border-color: #079046 !important;
+  box-shadow: 0 0 0 3px rgba(7, 144, 70, 0.1) !important;
 }
 
 .table-container::-webkit-scrollbar {
@@ -80,7 +81,12 @@ select:focus {
 
 body {
   margin: 0;
-  overflow: hidden; /* Prevent body scroll to support app-like Dashboard scroll */
+  overflow: hidden;
+  background-color: #f9fafb;
+  background-image: 
+    radial-gradient(at 0% 0%, rgba(7, 144, 70, 0.03) 0, transparent 40%),
+    radial-gradient(at 100% 100%, rgba(7, 144, 70, 0.03) 0, transparent 40%);
+  min-height: 100vh;
 }
 
 #app {

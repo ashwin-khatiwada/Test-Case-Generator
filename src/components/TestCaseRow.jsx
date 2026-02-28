@@ -37,14 +37,14 @@ export default function TestCaseRow({ testCase, onChange, onDelete }) {
     return (
         <tr className="hover:bg-slate-50 transition-colors">
             <td className="px-4 py-4 min-w-[80px] align-middle text-center">
-                <span className="font-mono text-sm font-medium text-blue-600 bg-blue-50 px-2 py-1 rounded">{testCase.id}</span>
+                <span className="font-mono text-sm font-bold text-[#079046] bg-[#079046]/5 px-2 py-1 rounded min-w-[60px] inline-block border border-[#079046]/10">{testCase.id}</span>
             </td>
             <td className="px-4 py-4 min-w-[250px] align-middle">
                 <AutoExpandingTextarea
                     value={testCase.name}
                     placeholder="Test case name"
                     onChange={(val) => handleChange('name', val)}
-                    className="px-3 py-2 text-sm bg-slate-50 border border-slate-200 rounded-lg focus:border-blue-400 focus:bg-white"
+                    className="px-3 py-2 text-sm bg-slate-50 border border-slate-200 rounded-lg focus:border-[#079046] focus:bg-white"
                 />
             </td>
             <td className="px-4 py-4 min-w-[250px] align-middle">
@@ -52,7 +52,7 @@ export default function TestCaseRow({ testCase, onChange, onDelete }) {
                     value={testCase.description}
                     placeholder="Description"
                     onChange={(val) => handleChange('description', val)}
-                    className="px-3 py-2 text-sm bg-slate-50 border border-slate-200 rounded-lg focus:border-blue-400 focus:bg-white"
+                    className="px-3 py-2 text-sm bg-slate-50 border border-slate-200 rounded-lg focus:border-[#079046] focus:bg-white"
                 />
             </td>
             <td className="px-4 py-4 min-w-[250px] align-middle">
@@ -60,7 +60,7 @@ export default function TestCaseRow({ testCase, onChange, onDelete }) {
                     value={testCase.preconditions}
                     placeholder="Preconditions"
                     onChange={(val) => handleChange('preconditions', val)}
-                    className="px-3 py-2 text-sm bg-slate-50 border border-slate-200 rounded-lg focus:border-blue-400 focus:bg-white"
+                    className="px-3 py-2 text-sm bg-slate-50 border border-slate-200 rounded-lg focus:border-[#079046] focus:bg-white"
                 />
             </td>
             <td className="px-4 py-4 min-w-[300px] align-middle">
@@ -68,7 +68,7 @@ export default function TestCaseRow({ testCase, onChange, onDelete }) {
                     value={testCase.steps}
                     placeholder="Test steps"
                     onChange={(val) => handleChange('steps', val)}
-                    className="px-3 py-2 text-sm bg-slate-50 border border-slate-200 rounded-lg focus:border-blue-400 focus:bg-white"
+                    className="px-3 py-2 text-sm bg-slate-50 border border-slate-200 rounded-lg focus:border-[#079046] focus:bg-white"
                 />
             </td>
             <td className="px-4 py-4 min-w-[250px] align-middle">
@@ -76,7 +76,7 @@ export default function TestCaseRow({ testCase, onChange, onDelete }) {
                     value={testCase.inputData}
                     placeholder="Input data"
                     onChange={(val) => handleChange('inputData', val)}
-                    className="px-3 py-2 text-sm bg-slate-50 border border-slate-200 rounded-lg focus:border-blue-400 focus:bg-white"
+                    className="px-3 py-2 text-sm bg-slate-50 border border-slate-200 rounded-lg focus:border-[#079046] focus:bg-white"
                 />
             </td>
             <td className="px-4 py-4 min-w-[250px] align-middle">
@@ -84,7 +84,7 @@ export default function TestCaseRow({ testCase, onChange, onDelete }) {
                     value={testCase.expected}
                     placeholder="Expected result"
                     onChange={(val) => handleChange('expected', val)}
-                    className="px-3 py-2 text-sm bg-slate-50 border border-slate-200 rounded-lg focus:border-blue-400 focus:bg-white"
+                    className="px-3 py-2 text-sm bg-slate-50 border border-slate-200 rounded-lg focus:border-[#079046] focus:bg-white"
                 />
             </td>
             <td className="px-4 py-4 min-w-[250px] align-middle">
@@ -92,14 +92,14 @@ export default function TestCaseRow({ testCase, onChange, onDelete }) {
                     value={testCase.actual}
                     placeholder="Actual result"
                     onChange={(val) => handleChange('actual', val)}
-                    className="px-3 py-2 text-sm bg-slate-50 border border-slate-200 rounded-lg focus:border-blue-400 focus:bg-white"
+                    className="px-3 py-2 text-sm bg-slate-50 border border-slate-200 rounded-lg focus:border-[#079046] focus:bg-white"
                 />
             </td>
             <td className="px-4 py-4 min-w-[150px] align-middle">
                 <select
                     value={testCase.status}
                     onChange={(e) => handleChange('status', e.target.value)}
-                    className="w-full px-3 py-2 text-sm bg-slate-50 border border-slate-200 rounded-lg focus:border-blue-400 focus:bg-white transition-all h-[38px]"
+                    className="w-full px-3 py-2 text-sm bg-slate-50 border border-slate-200 rounded-lg focus:border-[#079046] focus:bg-white transition-all h-[38px]"
                 >
                     <option value="">Select</option>
                     <option value="Passed">✓ Passed</option>
@@ -112,7 +112,7 @@ export default function TestCaseRow({ testCase, onChange, onDelete }) {
                     type="date"
                     value={testCase.execDate}
                     onChange={(e) => handleChange('execDate', e.target.value)}
-                    className="w-full px-3 py-2 text-sm bg-slate-50 border border-slate-200 rounded-lg focus:border-blue-400 focus:bg-white h-[38px] transition-all"
+                    className="w-full px-3 py-2 text-sm bg-slate-50 border border-slate-200 rounded-lg focus:border-[#079046] focus:bg-white h-[38px] transition-all"
                 />
             </td>
             <td className="px-4 py-4 min-w-[80px] align-middle text-center">

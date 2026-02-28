@@ -105,7 +105,7 @@ export default function AddEditForm({ plan, isEditing, onSave, onCancel }) {
                         <FormField label="Test Plan Name" required>
                             <input
                                 type="text" required value={formData.name}
-                                className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:border-blue-400 focus:bg-white transition-all duration-200"
+                                className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:border-[#079046] focus:bg-white transition-all duration-200"
                                 placeholder="e.g., Login Module Tests"
                                 onChange={(e) => handleFieldChange('name', e.target.value)}
                             />
@@ -113,7 +113,7 @@ export default function AddEditForm({ plan, isEditing, onSave, onCancel }) {
                         <FormField label="Module Name" required>
                             <input
                                 type="text" required value={formData.module}
-                                className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:border-blue-400 focus:bg-white transition-all duration-200"
+                                className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:border-[#079046] focus:bg-white transition-all duration-200"
                                 placeholder="e.g., Authentication"
                                 onChange={(e) => handleFieldChange('module', e.target.value)}
                             />
@@ -121,7 +121,7 @@ export default function AddEditForm({ plan, isEditing, onSave, onCancel }) {
                         <FormField label="Test Case ID Prefix" required>
                             <input
                                 type="text" required value={formData.idPrefix}
-                                className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:border-blue-400 focus:bg-white transition-all duration-200"
+                                className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:border-[#079046] focus:bg-white transition-all duration-200"
                                 placeholder="e.g., MT"
                                 onChange={(e) => handleFieldChange('idPrefix', e.target.value)}
                             />
@@ -129,7 +129,7 @@ export default function AddEditForm({ plan, isEditing, onSave, onCancel }) {
                         <FormField label="Tester Name" required>
                             <input
                                 type="text" required value={formData.tester}
-                                className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:border-blue-400 focus:bg-white transition-all duration-200"
+                                className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:border-[#079046] focus:bg-white transition-all duration-200"
                                 placeholder="e.g., John Doe"
                                 onChange={(e) => handleFieldChange('tester', e.target.value)}
                             />
@@ -137,7 +137,7 @@ export default function AddEditForm({ plan, isEditing, onSave, onCancel }) {
                         <FormField label="Execution Date">
                             <input
                                 type="date" value={formData.executionDate}
-                                className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:border-blue-400 focus:bg-white transition-all duration-200"
+                                className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:border-[#079046] focus:bg-white transition-all duration-200"
                                 onChange={(e) => handleFieldChange('executionDate', e.target.value)}
                             />
                         </FormField>
@@ -145,7 +145,7 @@ export default function AddEditForm({ plan, isEditing, onSave, onCancel }) {
                             <FormField label="Description">
                                 <textarea
                                     rows="3" value={formData.description}
-                                    className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:border-blue-400 focus:bg-white transition-all duration-200 resize-none"
+                                    className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:border-[#079046] focus:bg-white transition-all duration-200 resize-none"
                                     placeholder="Describe the test plan..."
                                     onChange={(e) => handleFieldChange('description', e.target.value)}
                                 />
@@ -154,7 +154,7 @@ export default function AddEditForm({ plan, isEditing, onSave, onCancel }) {
                         <FormField label="Prerequisites">
                             <textarea
                                 rows="3" value={formData.prerequisites}
-                                className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:border-blue-400 focus:bg-white transition-all duration-200 resize-none"
+                                className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:border-[#079046] focus:bg-white transition-all duration-200 resize-none"
                                 placeholder="List prerequisites..."
                                 onChange={(e) => handleFieldChange('prerequisites', e.target.value)}
                             />
@@ -162,7 +162,7 @@ export default function AddEditForm({ plan, isEditing, onSave, onCancel }) {
                         <FormField label="Environment">
                             <textarea
                                 rows="3" value={formData.environment}
-                                className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:border-blue-400 focus:bg-white transition-all duration-200 resize-none"
+                                className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:border-[#079046] focus:bg-white transition-all duration-200 resize-none"
                                 placeholder="e.g., Browser: Chrome 120, OS: Windows 11"
                                 onChange={(e) => handleFieldChange('environment', e.target.value)}
                             />
@@ -173,7 +173,7 @@ export default function AddEditForm({ plan, isEditing, onSave, onCancel }) {
                 <div className="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
                     <div className="bg-slate-50 px-6 py-4 border-b border-slate-200 flex justify-between items-center">
                         <h3 className="text-lg font-semibold text-slate-800">Test Cases</h3>
-                        <button type="button" onClick={addTestCase} className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg font-medium text-sm transition-all duration-200 flex items-center gap-2">
+                        <button type="button" onClick={addTestCase} className="bg-[#079046] hover:bg-[#067c3b] text-white px-4 py-2 rounded-lg font-bold text-sm transition-all duration-200 flex items-center gap-2 shadow-lg shadow-[#079046]/20">
                             <PlusIcon className="w-4 h-4" /> Add Test Case
                         </button>
                     </div>
@@ -213,7 +213,7 @@ export default function AddEditForm({ plan, isEditing, onSave, onCancel }) {
                                 <ClipboardIcon className="w-8 h-8 text-slate-400" />
                             </div>
                             <p className="text-slate-500 mb-4">No test cases added yet</p>
-                            <button type="button" onClick={addTestCase} className="text-blue-500 hover:text-blue-600 font-medium">+ Add your first test case</button>
+                            <button type="button" onClick={addTestCase} className="text-[#079046] hover:text-[#067c3b] font-bold">+ Add your first test case</button>
                         </div>
                     )}
                 </div>
@@ -222,7 +222,7 @@ export default function AddEditForm({ plan, isEditing, onSave, onCancel }) {
                     <button type="button" onClick={onCancel} className="px-6 py-3 bg-white border border-slate-200 rounded-xl font-medium text-slate-700 hover:bg-slate-50 transition-all duration-200">
                         Cancel
                     </button>
-                    <button type="submit" className="px-8 py-3 bg-blue-500 hover:bg-blue-600 text-white rounded-xl font-medium transition-all duration-200 shadow-lg shadow-blue-500/20 flex items-center gap-2">
+                    <button type="submit" className="px-8 py-3 bg-[#079046] hover:bg-[#067c3b] text-white rounded-xl font-bold transition-all duration-200 shadow-xl shadow-[#079046]/20 flex items-center gap-2">
                         <CheckIcon className="w-5 h-5" /> <span>{isEditing ? 'Save Changes' : 'Save Test Plan'}</span>
                     </button>
                 </div>

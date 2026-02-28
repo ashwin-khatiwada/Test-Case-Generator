@@ -7,39 +7,43 @@ export default function TestPlanCard({ plan, onView, onEdit, onDelete }) {
     const { passed, failed, blocked, notTested } = calculateStats(testCases);
     const total = testCases.length;
 
-    const rateColor = passRate >= 70 ? 'text-emerald-600' : passRate >= 40 ? 'text-amber-600' : 'text-red-600';
+    const rateColor = passRate >= 70 ? 'text-[#079046]' : passRate >= 40 ? 'text-amber-600' : 'text-red-600';
 
     return (
-        <div className="bg-white rounded-3xl border border-slate-200 shadow-sm hover:shadow-xl hover:border-blue-100 transition-all duration-300 overflow-hidden group">
-            <div className="p-6">
-                <div className="flex items-start justify-between mb-6">
+        <div className="bg-white rounded-3xl border border-slate-200 shadow-sm hover:shadow-xl hover:border-[#079046]/30 transition-all duration-300 flex flex-col h-full group">
+            <div className="p-6 flex-1 flex flex-col">
+                <div className="flex items-start justify-between gap-3 mb-5">
                     <div className="flex-1 min-w-0">
-                        <h3 className="text-xl font-bold text-slate-800 truncate group-hover:text-blue-600 transition-colors">{plan.name}</h3>
-                        <p className="text-sm font-medium text-slate-400 uppercase tracking-tight">{plan.module}</p>
-                    </div>
-                    <div className="ml-3 flex-shrink-0">
-                        <div className={`w-14 h-14 rounded-2xl bg-slate-50 border border-slate-100 flex items-center justify-center shadow-inner group-hover:bg-white transition-colors`}>
-                            <span className={`text-base font-black ${rateColor}`}>{passRate}%</span>
+                        <div className="flex items-center gap-2 mb-2">
+                            <div className={`w-1.5 h-1.5 rounded-full ${passRate >= 80 ? 'bg-[#079046]' : passRate >= 50 ? 'bg-amber-500' : 'bg-red-500'}`}></div>
+                            <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest truncate">{plan.module}</span>
                         </div>
+                        <div className="min-h-[3.25rem]">
+                            <h3 className="text-lg font-extrabold text-slate-800 leading-snug group-hover:text-[#079046] transition-colors line-clamp-2" title={plan.name}>
+                                {plan.name}
+                            </h3>
+                        </div>
+                    </div>
+                    <div className={`flex-shrink-0 px-3 py-1 rounded-full border text-xs font-black shadow-sm tracking-tight self-start mt-1
+                        ${passRate >= 70 ? 'bg-[#079046]/10 text-[#079046] border-[#079046]/20' :
+                            passRate >= 40 ? 'bg-amber-50 text-amber-700 border-amber-100' :
+                                'bg-red-50 text-red-700 border-red-100'}`}>
+                        {passRate}%
                     </div>
                 </div>
 
-                <div className="grid grid-cols-2 gap-4 mb-6">
-                    <div className="flex items-center gap-2.5 text-sm text-slate-600 bg-slate-50/50 p-2 rounded-xl border border-slate-100/50">
-                        <div className="w-8 h-8 rounded-lg bg-white flex items-center justify-center shadow-sm">
-                            <UserIcon className="w-4 h-4 text-slate-400" />
-                        </div>
+                <div className="grid grid-cols-2 gap-3 mb-6 mt-auto">
+                    <div className="flex items-center gap-2.5 text-sm text-slate-600 bg-slate-50/50 p-2.5 rounded-xl border border-slate-100/50">
+                        <UserIcon className="w-4 h-4 text-slate-400" />
                         <span className="truncate font-medium">{plan.tester}</span>
                     </div>
-                    <div className="flex items-center gap-2.5 text-sm text-slate-600 bg-slate-50/50 p-2 rounded-xl border border-slate-100/50">
-                        <div className="w-8 h-8 rounded-lg bg-white flex items-center justify-center shadow-sm">
-                            <CalendarIcon className="w-4 h-4 text-slate-400" />
-                        </div>
+                    <div className="flex items-center gap-2.5 text-sm text-slate-600 bg-slate-50/50 p-2.5 rounded-xl border border-slate-100/50">
+                        <CalendarIcon className="w-4 h-4 text-slate-400" />
                         <span className="font-medium">{plan.executionDate ? formatDate(plan.executionDate) : 'Not set'}</span>
                     </div>
                 </div>
 
-                <div className="flex flex-wrap gap-1.5 mb-2">
+                <div className="flex flex-wrap gap-1.5 pt-2">
                     <Badge color="emerald" label={`${passed} Passed`} />
                     <Badge color="red" label={`${failed} Failed`} />
                     <Badge color="amber" label={`${blocked} Blocked`} />
@@ -47,11 +51,11 @@ export default function TestPlanCard({ plan, onView, onEdit, onDelete }) {
                 </div>
             </div>
 
-            <div className="px-6 py-4 bg-slate-50/80 border-t border-slate-100 flex gap-3 group-hover:bg-white transition-colors">
+            <div className="px-6 py-4 bg-slate-50/80 border-t border-slate-100 flex gap-3 group-hover:bg-white transition-colors mt-auto">
                 <button onClick={() => onView(plan.id)} className="flex-1 px-4 py-2.5 bg-white border border-slate-200 rounded-xl text-sm font-bold text-slate-700 hover:bg-slate-800 hover:text-white hover:border-slate-800 transition-all duration-200 shadow-sm">
                     Open Details
                 </button>
-                <button onClick={() => onEdit(plan.id)} className="px-4 py-2.5 bg-blue-50 border border-blue-100 rounded-xl text-sm font-bold text-blue-600 hover:bg-blue-600 hover:text-white transition-all duration-200 shadow-sm">
+                <button onClick={() => onEdit(plan.id)} className="px-4 py-2.5 bg-[#079046]/5 border border-[#079046]/10 rounded-xl text-sm font-bold text-[#079046] hover:bg-[#079046] hover:text-white transition-all duration-200 shadow-sm">
                     Edit
                 </button>
                 <button onClick={() => onDelete(plan.id)} className="p-2.5 bg-red-50 border border-red-100 rounded-xl text-red-500 hover:bg-red-500 hover:text-white transition-all duration-200 shadow-sm">
@@ -64,7 +68,7 @@ export default function TestPlanCard({ plan, onView, onEdit, onDelete }) {
 
 function Badge({ color, label }) {
     const styles = {
-        emerald: 'bg-emerald-50 text-emerald-700 border-emerald-100',
+        emerald: 'bg-[#079046]/5 text-[#079046] border-[#079046]/10',
         red: 'bg-red-50 text-red-700 border-red-100',
         amber: 'bg-amber-50 text-amber-700 border-amber-100',
         slate: 'bg-slate-100 text-slate-600 border-slate-200'

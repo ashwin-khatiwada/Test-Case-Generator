@@ -3,6 +3,7 @@ import { SearchIcon, ClipboardIcon } from './Icons';
 import StatsCards from './StatsCards';
 import TestPlanCard from './TestPlanCard';
 import { getGlobalStats } from '../utils/helpers';
+import logo from '../assets/lf-logo.svg';
 
 export default function Dashboard({ testPlans, onNavigate, onDelete }) {
     const [searchTerm, setSearchTerm] = useState('');
@@ -24,21 +25,22 @@ export default function Dashboard({ testPlans, onNavigate, onDelete }) {
                 <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 mb-10">
                     <div>
                         <h2 className="text-4xl font-black text-slate-800 tracking-tight">
-                            Test Plans <span className="text-blue-600">Dashboard</span>
+                            Quality Assurance <span className="text-[#079046]">Dashboard</span>
                         </h2>
                         <p className="text-lg text-slate-500 font-medium">
                             Manage and track your quality assurance workflows.
                         </p>
+
                     </div>
 
                     <div className="relative group w-full lg:w-96">
-                        <SearchIcon className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400 group-focus-within:text-blue-500 transition-colors" />
+                        <SearchIcon className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400 group-focus-within:text-[#079046] transition-colors" />
                         <input
                             type="text"
                             placeholder="Find a test plan..."
                             value={searchTerm}
                             onChange={(e) => setSearchTerm(e.target.value)}
-                            className="w-full pl-12 pr-4 py-3 bg-white border border-slate-200 rounded-2xl text-slate-700 placeholder-slate-400 focus:border-blue-400 focus:ring-4 focus:ring-blue-500/5 transition-all duration-300 shadow-sm outline-none font-medium"
+                            className="w-full pl-12 pr-4 py-3 bg-white border border-slate-200 rounded-2xl text-slate-700 placeholder-slate-400 focus:border-[#079046] focus:ring-4 focus:ring-[#079046]/5 transition-all duration-300 shadow-sm outline-none font-medium"
                         />
                     </div>
                 </div>
@@ -61,7 +63,7 @@ export default function Dashboard({ testPlans, onNavigate, onDelete }) {
                             <p className="text-slate-500 mb-6">Get started by creating your first test plan</p>
                             <button
                                 onClick={() => onNavigate('add')}
-                                className="bg-blue-500 hover:bg-blue-600 text-white px-6 py-3 rounded-xl font-medium transition-all duration-200 shadow-lg shadow-blue-500/20"
+                                className="bg-[#079046] hover:bg-[#067c3b] text-white px-6 py-3 rounded-xl font-bold transition-all duration-200 shadow-xl shadow-[#079046]/20"
                             >
                                 Create Your First Test Plan
                             </button>

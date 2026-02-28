@@ -6,9 +6,9 @@ export default function StatusBadge({ status }) {
     }
 
     const stylesMap = {
-        'Passed': 'bg-emerald-100 text-emerald-700 border-emerald-200',
-        'Failed': 'bg-red-100 text-red-700 border-red-200',
-        'Blocked': 'bg-amber-100 text-amber-700 border-amber-200'
+        'Passed': 'bg-[#079046]/5 text-[#079046] border-[#079046]/20',
+        'Failed': 'bg-red-50 text-red-700 border-red-200',
+        'Blocked': 'bg-amber-50 text-amber-700 border-amber-200'
     };
 
     const iconsMap = {
