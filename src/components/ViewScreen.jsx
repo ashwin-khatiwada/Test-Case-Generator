@@ -89,10 +89,10 @@ export default function ViewScreen({ plan, onBack, onEdit, onExportSuccess }) {
                         <tbody className="divide-y divide-slate-100 bg-white">
                             {testCases.map((tc) => {
                                 const rowColorClass =
-                                    tc.status === 'Passed' ? 'bg-[#079046]/[0.02]' :
-                                        tc.status === 'Failed' ? 'bg-red-50/50' :
-                                            tc.status === 'Blocked' ? 'bg-amber-50/50' :
-                                                'bg-slate-50/50';
+                                    tc.status === 'Passed' ? 'bg-[#079046]/10' :
+                                        tc.status === 'Failed' ? 'bg-red-100/40' :
+                                            tc.status === 'Blocked' ? 'bg-amber-100/40' :
+                                                'bg-slate-100/40';
 
                                 return (
                                     <tr key={tc.id} className={`${rowColorClass} hover:brightness-95 transition-all`}>
