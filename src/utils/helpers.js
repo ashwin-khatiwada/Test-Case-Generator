@@ -37,9 +37,10 @@ export function calculateStats(testCases = []) {
             if (tc.status === 'Passed') acc.passed++;
             else if (tc.status === 'Failed') acc.failed++;
             else if (tc.status === 'Blocked') acc.blocked++;
+            else acc.notTested++;
             return acc;
         },
-        { passed: 0, failed: 0, blocked: 0 }
+        { passed: 0, failed: 0, blocked: 0, notTested: 0 }
     );
 }
 
@@ -56,14 +57,16 @@ export function getPassRate(testCases = []) {
  * Used by the dashboard stats cards.
  */
 export function getGlobalStats(testPlans = []) {
-    let passed = 0, failed = 0, blocked = 0;
+    let passed = 0, failed = 0, blocked = 0, notTested = 0, totalCases = 0;
     testPlans.forEach((plan) => {
         const cases = plan.testCases || [];
+        totalCases += cases.length;
         cases.forEach((tc) => {
             if (tc.status === 'Passed') passed++;
             else if (tc.status === 'Failed') failed++;
             else if (tc.status === 'Blocked') blocked++;
+            else notTested++;
         });
     });
-    return { total: testPlans.length, passed, failed, blocked };
+    return { total: testPlans.length, totalCases, passed, failed, blocked, notTested };
 }

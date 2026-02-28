@@ -49,6 +49,12 @@ export default function AddEditForm({ plan, isEditing, onSave, onCancel }) {
 
     const handleFieldChange = (field, value) => {
         setFormData((prev) => ({ ...prev, [field]: value }));
+        if (field === 'idPrefix') {
+            setTestCases(prev => prev.map((tc, index) => ({
+                ...tc,
+                id: `${value || 'TC'}_${String(index + 1).padStart(2, '0')}`
+            })));
+        }
     };
 
     const addTestCase = useCallback(() => {
@@ -62,8 +68,16 @@ export default function AddEditForm({ plan, isEditing, onSave, onCancel }) {
     }, []);
 
     const deleteTestCase = useCallback((id) => {
-        setTestCases((prev) => prev.filter((tc) => tc.id !== id));
-    }, []);
+        setTestCases((prev) => {
+            const filtered = prev.filter((tc) => tc.id !== id);
+            const renamed = filtered.map((tc, index) => ({
+                ...tc,
+                id: `${formData.idPrefix || 'TC'}_${String(index + 1).padStart(2, '0')}`
+            }));
+            counterRef.current = renamed.length;
+            return renamed;
+        });
+    }, [formData.idPrefix]);
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -163,16 +177,30 @@ export default function AddEditForm({ plan, isEditing, onSave, onCancel }) {
                             <PlusIcon className="w-4 h-4" /> Add Test Case
                         </button>
                     </div>
-                    <div className="table-container overflow-x-auto">
-                        <table className="w-full min-w-[1200px]">
-                            <thead className="bg-slate-50 sticky top-0">
+                    <div className="table-container overflow-auto max-h-[60vh]">
+                        <table className="w-full min-w-[2450px] border-collapse">
+                            <thead className="bg-slate-50 sticky top-0 z-10 shadow-sm">
                                 <tr>
-                                    {['ID', 'Name', 'Description', 'Preconditions', 'Test Steps', 'Input Data', 'Expected', 'Actual', 'Status', 'Exec Date', 'Actions'].map((h) => (
-                                        <th key={h} className="px-4 py-3 text-left text-xs font-semibold text-slate-600 uppercase tracking-wider">{h}</th>
+                                    {[
+                                        { label: 'ID', width: '80px' },
+                                        { label: 'Name', width: '250px' },
+                                        { label: 'Description', width: '250px' },
+                                        { label: 'Preconditions', width: '250px' },
+                                        { label: 'Test Steps', width: '300px' },
+                                        { label: 'Input Data', width: '250px' },
+                                        { label: 'Expected', width: '250px' },
+                                        { label: 'Actual', width: '250px' },
+                                        { label: 'Status', width: '150px' },
+                                        { label: 'Exec Date', width: '160px' },
+                                        { label: 'Actions', width: '80px' }
+                                    ].map((h) => (
+                                        <th key={h.label} style={{ width: h.width, minWidth: h.width }} className="px-4 py-3 text-left text-xs font-semibold text-slate-600 uppercase tracking-wider border-b border-slate-200 bg-slate-50">
+                                            {h.label}
+                                        </th>
                                     ))}
                                 </tr>
                             </thead>
-                            <tbody className="divide-y divide-slate-100">
+                            <tbody className="divide-y divide-slate-100 bg-white">
                                 {testCases.map((tc) => (
                                     <TestCaseRow key={tc.id} testCase={tc} onChange={updateTestCase} onDelete={deleteTestCase} />
                                 ))}
@@ -190,7 +218,7 @@ export default function AddEditForm({ plan, isEditing, onSave, onCancel }) {
                     )}
                 </div>
 
-                <div className="flex justify-end gap-4">
+                <div className="flex justify-end gap-4 pt-4">
                     <button type="button" onClick={onCancel} className="px-6 py-3 bg-white border border-slate-200 rounded-xl font-medium text-slate-700 hover:bg-slate-50 transition-all duration-200">
                         Cancel
                     </button>

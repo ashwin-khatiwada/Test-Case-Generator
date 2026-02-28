@@ -7,7 +7,7 @@ export default function ViewScreen({ plan, onBack, onEdit, onExportSuccess }) {
     if (!plan) return null;
 
     const testCases = plan.testCases || [];
-    const { passed, failed, blocked } = calculateStats(testCases);
+    const { passed, failed, blocked, notTested } = calculateStats(testCases);
 
     const handleExport = () => {
         exportTestPlanToExcel(plan);
@@ -53,10 +53,11 @@ export default function ViewScreen({ plan, onBack, onEdit, onExportSuccess }) {
                 </div>
             </div>
 
-            <div className="grid grid-cols-3 gap-4 mb-8">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
                 <SummaryCard value={passed} label="Passed" color="bg-emerald-50 border-emerald-200 text-emerald-600" labelColor="text-emerald-700" />
                 <SummaryCard value={failed} label="Failed" color="bg-red-50 border-red-200 text-red-600" labelColor="text-red-700" />
                 <SummaryCard value={blocked} label="Blocked" color="bg-amber-50 border-amber-200 text-amber-600" labelColor="text-amber-700" />
+                <SummaryCard value={notTested} label="Not Tested" color="bg-slate-50 border-slate-200 text-slate-600" labelColor="text-slate-700" />
             </div>
 
             <div className="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
@@ -64,30 +65,54 @@ export default function ViewScreen({ plan, onBack, onEdit, onExportSuccess }) {
                     <h3 className="text-lg font-semibold text-slate-800">Test Cases</h3>
                 </div>
                 <div className="table-container overflow-x-auto">
-                    <table className="w-full min-w-[1000px]">
+                    <table className="w-full min-w-[2600px] border-collapse">
                         <thead className="bg-slate-50">
                             <tr>
-                                {['ID', 'Name', 'Description', 'Test Steps', 'Expected', 'Actual', 'Status'].map((h) => (
-                                    <th key={h} className="px-4 py-3 text-left text-xs font-semibold text-slate-600 uppercase tracking-wider">{h}</th>
+                                {[
+                                    { label: 'ID', width: '80px' },
+                                    { label: 'Name', width: '250px' },
+                                    { label: 'Description', width: '250px' },
+                                    { label: 'Preconditions', width: '250px' },
+                                    { label: 'Test Steps', width: '300px' },
+                                    { label: 'Input Data', width: '250px' },
+                                    { label: 'Expected', width: '250px' },
+                                    { label: 'Actual', width: '250px' },
+                                    { label: 'Status', width: '150px' },
+                                    { label: 'Date', width: '150px' }
+                                ].map((h) => (
+                                    <th key={h.label} style={{ width: h.width, minWidth: h.width }} className="px-4 py-3 text-left text-xs font-semibold text-slate-600 uppercase tracking-wider border-b border-slate-200">
+                                        {h.label}
+                                    </th>
                                 ))}
                             </tr>
                         </thead>
-                        <tbody className="divide-y divide-slate-100">
-                            {testCases.map((tc) => (
-                                <tr key={tc.id} className="hover:bg-slate-50">
-                                    <td className="px-4 py-3">
-                                        <span className="font-mono text-sm font-medium text-blue-600 bg-blue-50 px-2 py-1 rounded">{tc.id}</span>
-                                    </td>
-                                    <td className="px-4 py-3 font-medium text-slate-800">{tc.name}</td>
-                                    <td className="px-4 py-3 text-slate-600 text-sm">{tc.description}</td>
-                                    <td className="px-4 py-3 text-slate-600 text-sm whitespace-pre-line">{tc.steps}</td>
-                                    <td className="px-4 py-3 text-slate-600 text-sm">{tc.expected}</td>
-                                    <td className="px-4 py-3 text-slate-600 text-sm">{tc.actual}</td>
-                                    <td className="px-4 py-3">
-                                        <StatusBadge status={tc.status} />
-                                    </td>
-                                </tr>
-                            ))}
+                        <tbody className="divide-y divide-slate-100 bg-white">
+                            {testCases.map((tc) => {
+                                const rowColorClass =
+                                    tc.status === 'Passed' ? 'bg-emerald-50/50' :
+                                        tc.status === 'Failed' ? 'bg-red-50/50' :
+                                            tc.status === 'Blocked' ? 'bg-amber-50/50' :
+                                                'bg-slate-50/50';
+
+                                return (
+                                    <tr key={tc.id} className={`${rowColorClass} hover:brightness-95 transition-all`}>
+                                        <td className="px-4 py-4 align-middle text-center">
+                                            <span className="font-mono text-sm font-medium text-blue-600 bg-blue-50 px-2 py-1 rounded">{tc.id}</span>
+                                        </td>
+                                        <td className="px-4 py-4 align-middle text-slate-800 font-medium whitespace-pre-line text-sm">{tc.name}</td>
+                                        <td className="px-4 py-4 align-middle text-slate-600 whitespace-pre-line text-sm">{tc.description}</td>
+                                        <td className="px-4 py-4 align-middle text-slate-600 whitespace-pre-line text-sm">{tc.preconditions}</td>
+                                        <td className="px-4 py-4 align-middle text-slate-600 whitespace-pre-line text-sm">{tc.steps}</td>
+                                        <td className="px-4 py-4 align-middle text-slate-600 whitespace-pre-line text-sm min-w-[250px]">{tc.inputData}</td>
+                                        <td className="px-4 py-4 align-middle text-slate-600 whitespace-pre-line text-sm">{tc.expected}</td>
+                                        <td className="px-4 py-4 align-middle text-slate-600 whitespace-pre-line text-sm">{tc.actual}</td>
+                                        <td className="px-4 py-4 align-middle">
+                                            <StatusBadge status={tc.status} />
+                                        </td>
+                                        <td className="px-4 py-4 align-middle text-slate-600 text-sm">{tc.execDate ? formatDate(tc.execDate) : '-'}</td>
+                                    </tr>
+                                );
+                            })}
                         </tbody>
                     </table>
                 </div>

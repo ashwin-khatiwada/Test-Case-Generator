@@ -50,23 +50,40 @@ select:focus {
 }
 
 .table-container::-webkit-scrollbar {
-  height: 8px;
+  height: 12px;
+  width: 12px;
 }
 
 .table-container::-webkit-scrollbar-track {
-  background: #f1f5f9;
-  border-radius: 4px;
+  background: #f8fafc;
+  border-radius: 6px;
 }
 
 .table-container::-webkit-scrollbar-thumb {
-  background: #cbd5e1;
-  border-radius: 4px;
+  background: #94a3b8;
+  border-radius: 6px;
+  border: 3px solid #f8fafc;
 }
 
 .table-container::-webkit-scrollbar-thumb:hover {
-  background: #94a3b8;
+  background: #64748b;
+}
+
+.custom-scrollbar {
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none;  /* IE and Edge */
+}
+
+.custom-scrollbar::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, and Opera */
 }
 
 body {
-  box-sizing: border-box;
+  margin: 0;
+  overflow: hidden; /* Prevent body scroll to support app-like Dashboard scroll */
+}
+
+#app {
+  height: 100vh;
+  overflow: auto;
 }

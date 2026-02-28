@@ -1,4 +1,33 @@
+import { useRef, useEffect } from 'react';
 import { TrashIcon } from './Icons';
+
+const AutoExpandingTextarea = ({ value, onChange, placeholder, className, minRows = 1 }) => {
+    const textareaRef = useRef(null);
+
+    const adjustHeight = () => {
+        const textarea = textareaRef.current;
+        if (textarea) {
+            textarea.style.height = 'auto';
+            textarea.style.height = `${textarea.scrollHeight}px`;
+        }
+    };
+
+    useEffect(() => {
+        adjustHeight();
+    }, [value]);
+
+    return (
+        <textarea
+            ref={textareaRef}
+            rows={minRows}
+            value={value}
+            placeholder={placeholder}
+            onChange={(e) => onChange(e.target.value)}
+            className={`${className} transition-all resize-none overflow-hidden block w-full`}
+            style={{ minHeight: '38px' }}
+        />
+    );
+};
 
 export default function TestCaseRow({ testCase, onChange, onDelete }) {
     const handleChange = (field, value) => {
@@ -7,77 +36,70 @@ export default function TestCaseRow({ testCase, onChange, onDelete }) {
 
     return (
         <tr className="hover:bg-slate-50 transition-colors">
-            <td className="px-4 py-3">
+            <td className="px-4 py-4 min-w-[80px] align-middle text-center">
                 <span className="font-mono text-sm font-medium text-blue-600 bg-blue-50 px-2 py-1 rounded">{testCase.id}</span>
             </td>
-            <td className="px-4 py-3">
-                <input
-                    type="text"
+            <td className="px-4 py-4 min-w-[250px] align-middle">
+                <AutoExpandingTextarea
                     value={testCase.name}
                     placeholder="Test case name"
-                    onChange={(e) => handleChange('name', e.target.value)}
-                    className="w-full px-3 py-2 text-sm bg-slate-50 border border-slate-200 rounded-lg focus:border-blue-400 focus:bg-white"
+                    onChange={(val) => handleChange('name', val)}
+                    className="px-3 py-2 text-sm bg-slate-50 border border-slate-200 rounded-lg focus:border-blue-400 focus:bg-white"
                 />
             </td>
-            <td className="px-4 py-3">
-                <input
-                    type="text"
+            <td className="px-4 py-4 min-w-[250px] align-middle">
+                <AutoExpandingTextarea
                     value={testCase.description}
                     placeholder="Description"
-                    onChange={(e) => handleChange('description', e.target.value)}
-                    className="w-full px-3 py-2 text-sm bg-slate-50 border border-slate-200 rounded-lg focus:border-blue-400 focus:bg-white"
+                    onChange={(val) => handleChange('description', val)}
+                    className="px-3 py-2 text-sm bg-slate-50 border border-slate-200 rounded-lg focus:border-blue-400 focus:bg-white"
                 />
             </td>
-            <td className="px-4 py-3">
-                <input
-                    type="text"
+            <td className="px-4 py-4 min-w-[250px] align-middle">
+                <AutoExpandingTextarea
                     value={testCase.preconditions}
                     placeholder="Preconditions"
-                    onChange={(e) => handleChange('preconditions', e.target.value)}
-                    className="w-full px-3 py-2 text-sm bg-slate-50 border border-slate-200 rounded-lg focus:border-blue-400 focus:bg-white"
+                    onChange={(val) => handleChange('preconditions', val)}
+                    className="px-3 py-2 text-sm bg-slate-50 border border-slate-200 rounded-lg focus:border-blue-400 focus:bg-white"
                 />
             </td>
-            <td className="px-4 py-3">
-                <textarea
-                    placeholder="Test steps"
-                    rows="2"
+            <td className="px-4 py-4 min-w-[300px] align-middle">
+                <AutoExpandingTextarea
                     value={testCase.steps}
-                    onChange={(e) => handleChange('steps', e.target.value)}
-                    className="w-full px-3 py-2 text-sm bg-slate-50 border border-slate-200 rounded-lg focus:border-blue-400 focus:bg-white resize-none"
+                    placeholder="Test steps"
+                    onChange={(val) => handleChange('steps', val)}
+                    className="px-3 py-2 text-sm bg-slate-50 border border-slate-200 rounded-lg focus:border-blue-400 focus:bg-white"
                 />
             </td>
-            <td className="px-4 py-3">
-                <input
-                    type="text"
+            <td className="px-4 py-4 min-w-[250px] align-middle">
+                <AutoExpandingTextarea
                     value={testCase.inputData}
                     placeholder="Input data"
-                    onChange={(e) => handleChange('inputData', e.target.value)}
-                    className="w-full px-3 py-2 text-sm bg-slate-50 border border-slate-200 rounded-lg focus:border-blue-400 focus:bg-white"
+                    onChange={(val) => handleChange('inputData', val)}
+                    className="px-3 py-2 text-sm bg-slate-50 border border-slate-200 rounded-lg focus:border-blue-400 focus:bg-white"
                 />
             </td>
-            <td className="px-4 py-3">
-                <input
-                    type="text"
+            <td className="px-4 py-4 min-w-[250px] align-middle">
+                <AutoExpandingTextarea
                     value={testCase.expected}
                     placeholder="Expected result"
-                    onChange={(e) => handleChange('expected', e.target.value)}
-                    className="w-full px-3 py-2 text-sm bg-slate-50 border border-slate-200 rounded-lg focus:border-blue-400 focus:bg-white"
+                    onChange={(val) => handleChange('expected', val)}
+                    className="px-3 py-2 text-sm bg-slate-50 border border-slate-200 rounded-lg focus:border-blue-400 focus:bg-white"
                 />
             </td>
-            <td className="px-4 py-3">
-                <input
-                    type="text"
+            <td className="px-4 py-4 min-w-[250px] align-middle">
+                <AutoExpandingTextarea
                     value={testCase.actual}
                     placeholder="Actual result"
-                    onChange={(e) => handleChange('actual', e.target.value)}
-                    className="w-full px-3 py-2 text-sm bg-slate-50 border border-slate-200 rounded-lg focus:border-blue-400 focus:bg-white"
+                    onChange={(val) => handleChange('actual', val)}
+                    className="px-3 py-2 text-sm bg-slate-50 border border-slate-200 rounded-lg focus:border-blue-400 focus:bg-white"
                 />
             </td>
-            <td className="px-4 py-3">
+            <td className="px-4 py-4 min-w-[150px] align-middle">
                 <select
                     value={testCase.status}
                     onChange={(e) => handleChange('status', e.target.value)}
-                    className="w-full px-3 py-2 text-sm bg-slate-50 border border-slate-200 rounded-lg focus:border-blue-400 focus:bg-white"
+                    className="w-full px-3 py-2 text-sm bg-slate-50 border border-slate-200 rounded-lg focus:border-blue-400 focus:bg-white transition-all h-[38px]"
                 >
                     <option value="">Select</option>
                     <option value="Passed">✓ Passed</option>
@@ -85,15 +107,15 @@ export default function TestCaseRow({ testCase, onChange, onDelete }) {
                     <option value="Blocked">⚠ Blocked</option>
                 </select>
             </td>
-            <td className="px-4 py-3">
+            <td className="px-4 py-4 min-w-[160px] align-middle">
                 <input
                     type="date"
                     value={testCase.execDate}
                     onChange={(e) => handleChange('execDate', e.target.value)}
-                    className="w-full px-3 py-2 text-sm bg-slate-50 border border-slate-200 rounded-lg focus:border-blue-400 focus:bg-white"
+                    className="w-full px-3 py-2 text-sm bg-slate-50 border border-slate-200 rounded-lg focus:border-blue-400 focus:bg-white h-[38px] transition-all"
                 />
             </td>
-            <td className="px-4 py-3">
+            <td className="px-4 py-4 min-w-[80px] align-middle text-center">
                 <button type="button" onClick={() => onDelete(testCase.id)} className="p-2 text-red-500 hover:bg-red-50 rounded-lg transition-colors">
                     <TrashIcon className="w-5 h-5" />
                 </button>
