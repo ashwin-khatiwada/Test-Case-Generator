@@ -10,12 +10,12 @@ export async function exportTestPlanToExcel(plan) {
     if (!plan) return;
 
     const workbook = new ExcelJS.Workbook();
-    const worksheet = workbook.addWorksheet('Test Plan');
+    const worksheet = workbook.addWorksheet('Test Suite');
 
     // Header section with plan metadata
-    worksheet.addRow(['Test Plan Report']);
+    worksheet.addRow(['Test Suite Report']);
     worksheet.addRow([]);
-    worksheet.addRow(['Test Plan Name:', plan.name]);
+    worksheet.addRow(['Test Suite Name:', plan.name]);
     worksheet.addRow(['Module:', plan.module]);
     worksheet.addRow(['Tester:', plan.tester]);
     worksheet.addRow(['Execution Date:', plan.executionDate ? formatDate(plan.executionDate) : 'Not set']);
@@ -108,6 +108,11 @@ export async function exportTestPlanToExcel(plan) {
             };
             cell.alignment = { wrapText: true, vertical: 'top' };
 
+            // Bold the Status column
+            if (i === 9) {
+                cell.font = { bold: true };
+            }
+
             // Determine background color based on status
             let bgColor = 'FFFFFFFF'; // Default white
             if (tc.status === 'Passed') bgColor = 'FFE6F4EA'; // Faint green
@@ -140,5 +145,5 @@ export async function exportTestPlanToExcel(plan) {
     // Export file
     const buffer = await workbook.xlsx.writeBuffer();
     const blob = new Blob([buffer], { type: 'application/octet-stream' });
-    saveAs(blob, `${plan.name.replace(/[^a-z0-9]/gi, '_')}_TestPlan.xlsx`);
+    saveAs(blob, `${plan.name.replace(/[^a-z0-9]/gi, '_')}_TestSuite.xlsx`);
 }

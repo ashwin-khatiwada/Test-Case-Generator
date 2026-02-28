@@ -91,7 +91,7 @@ export default function AddEditForm({ plan, isEditing, onSave, onCancel }) {
                     <ChevronLeftIcon className="w-5 h-5 text-slate-600" />
                 </button>
                 <div>
-                    <h2 className="text-2xl font-bold text-slate-800">{isEditing ? 'Edit Test Plan' : 'Add New Test Plan'}</h2>
+                    <h2 className="text-2xl font-bold text-slate-800">{isEditing ? 'Edit Test Suite' : 'Add New Test Suite'}</h2>
                     <p className="text-slate-500">Fill in the details below</p>
                 </div>
             </div>
@@ -99,10 +99,10 @@ export default function AddEditForm({ plan, isEditing, onSave, onCancel }) {
             <form onSubmit={handleSubmit} className="space-y-8">
                 <div className="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
                     <div className="bg-slate-50 px-6 py-4 border-b border-slate-200">
-                        <h3 className="text-lg font-semibold text-slate-800">Test Plan Information</h3>
+                        <h3 className="text-lg font-semibold text-slate-800">Test Suite Information</h3>
                     </div>
                     <div className="p-6 grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <FormField label="Test Plan Name" required>
+                        <FormField label="Test Suite Name" required>
                             <input
                                 type="text" required value={formData.name}
                                 className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:border-[#079046] focus:bg-white transition-all duration-200"
@@ -146,7 +146,7 @@ export default function AddEditForm({ plan, isEditing, onSave, onCancel }) {
                                 <textarea
                                     rows="3" value={formData.description}
                                     className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:border-[#079046] focus:bg-white transition-all duration-200 resize-none"
-                                    placeholder="Describe the test plan..."
+                                    placeholder="Describe the test suite..."
                                     onChange={(e) => handleFieldChange('description', e.target.value)}
                                 />
                             </FormField>
@@ -223,7 +223,7 @@ export default function AddEditForm({ plan, isEditing, onSave, onCancel }) {
                         Cancel
                     </button>
                     <button type="submit" className="px-8 py-3 bg-[#079046] hover:bg-[#067c3b] text-white rounded-xl font-bold transition-all duration-200 shadow-xl shadow-[#079046]/20 flex items-center gap-2">
-                        <CheckIcon className="w-5 h-5" /> <span>{isEditing ? 'Save Changes' : 'Save Test Plan'}</span>
+                        <CheckIcon className="w-5 h-5" /> <span>{isEditing ? 'Save Changes' : 'Save Test Suite'}</span>
                     </button>
                 </div>
             </form>

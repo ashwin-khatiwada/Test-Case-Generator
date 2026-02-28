@@ -18,21 +18,21 @@ export default function App() {
   const handleSave = useCallback((formData, id = null) => {
     if (id) {
       updatePlan(id, formData);
-      showToast('Test Plan Updated Successfully');
+      showToast('Test Suite Updated Successfully');
     } else {
       addPlan(formData);
-      showToast('Test Plan Saved Successfully');
+      showToast('Test Suite Saved Successfully');
     }
     navigate('/');
   }, [addPlan, updatePlan, showToast, navigate]);
 
   const handleDeleteRequest = useCallback((id) => {
     setModal({
-      title: 'Delete Test Plan',
-      message: 'Are you sure you want to delete this test plan? This action cannot be undone.',
+      title: 'Delete Test Suite',
+      message: 'Are you sure you want to delete this test suite? This action cannot be undone.',
       onConfirm: () => {
         deletePlan(id);
-        showToast('Test Plan Deleted', 'info');
+        showToast('Test Suite Deleted', 'info');
         setModal(null);
       },
     });

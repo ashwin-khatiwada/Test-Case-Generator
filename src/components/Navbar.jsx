@@ -21,7 +21,7 @@ export default function Navbar() {
                             className="bg-[#079046] hover:bg-[#067c3b] text-white px-5 py-2.5 rounded-xl font-bold transition-all duration-200 flex items-center gap-2 shadow-lg shadow-[#079046]/20 hover:shadow-[#079046]/30 hover:-translate-y-0.5"
                         >
                             <PlusIcon className="w-5 h-5" />
-                            <span className="hidden sm:inline">Add New Test Plan</span>
+                            <span className="hidden sm:inline">Add New Test Suite</span>
                             <span className="sm:hidden">Add</span>
                         </button>
                     )}

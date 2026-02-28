@@ -26,8 +26,8 @@ export default function ViewScreen({ plan, onBack, onEdit, onExportSuccess }) {
                         <ChevronLeftIcon className="w-5 h-5 text-slate-600" />
                     </button>
                     <div>
-                        <h2 className="text-2xl font-bold text-slate-800">Test Plan Details</h2>
-                        <p className="text-slate-500">View test plan information and test cases</p>
+                        <h2 className="text-2xl font-bold text-slate-800">Test Suite Details</h2>
+                        <p className="text-slate-500">View test suite information and test cases</p>
                     </div>
                 </div>
                 <div className="flex gap-3">
@@ -35,7 +35,7 @@ export default function ViewScreen({ plan, onBack, onEdit, onExportSuccess }) {
                         <DownloadIcon className="w-5 h-5" /> Export Excel
                     </button>
                     <button onClick={() => onEdit(plan.id)} className="px-5 py-2.5 bg-slate-800 hover:bg-slate-900 text-white rounded-xl font-bold transition-all duration-200 flex items-center gap-2 shadow-lg shadow-slate-900/20">
-                        <EditIcon className="w-5 h-5" /> Edit Plan
+                        <EditIcon className="w-5 h-5" /> Edit Suite
                     </button>
                 </div>
             </div>

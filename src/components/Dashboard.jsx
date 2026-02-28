@@ -38,7 +38,7 @@ export default function Dashboard({ testPlans, onDelete }) {
                         <SearchIcon className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400 group-focus-within:text-[#079046] transition-colors" />
                         <input
                             type="text"
-                            placeholder="Find a test plan..."
+                            placeholder="Find a test suite..."
                             value={searchTerm}
                             onChange={(e) => setSearchTerm(e.target.value)}
                             className="w-full pl-12 pr-4 py-3.5 bg-white border border-slate-200 rounded-2xl text-slate-700 placeholder-slate-400 focus:border-[#079046] focus:ring-4 focus:ring-[#079046]/5 transition-all duration-300 outline-none font-medium"
@@ -59,18 +59,18 @@ export default function Dashboard({ testPlans, onDelete }) {
                         <div className="w-24 h-24 sm:w-32 sm:h-32 mx-auto mb-6 bg-slate-100 rounded-full flex items-center justify-center">
                             <ClipboardIcon className="w-12 h-12 sm:w-16 sm:h-16 text-slate-300" />
                         </div>
-                        <h3 className="text-xl font-bold text-slate-700 mb-2">No Test Plans Yet</h3>
-                        <p className="text-slate-500 mb-8 max-w-md mx-auto px-4">Get started by creating your first test plan to begin tracking your quality assurance metrics.</p>
+                        <h3 className="text-xl font-bold text-slate-700 mb-2">No Test Suites Yet</h3>
+                        <p className="text-slate-500 mb-8 max-w-md mx-auto px-4">Get started by creating your first test suite to begin tracking your quality assurance metrics.</p>
                         <button
                             onClick={() => navigate('/add')}
                             className="bg-[#079046] hover:bg-[#067c3b] text-white px-8 py-3.5 rounded-2xl font-black transition-all duration-200 shadow-xl shadow-[#079046]/20 active:scale-95"
                         >
-                            Create Your First Test Plan
+                            Create Your First Test Suite
                         </button>
                     </div>
                 ) : filtered.length === 0 ? (
                     <div className="text-center py-16 bg-white rounded-3xl border border-slate-200 shadow-sm mb-12">
-                        <p className="text-slate-500 font-bold text-lg">No test plans match your search</p>
+                        <p className="text-slate-500 font-bold text-lg">No test suites match your search</p>
                         <button
                             onClick={() => setSearchTerm('')}
                             className="mt-4 text-[#079046] font-bold hover:underline"

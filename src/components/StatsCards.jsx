@@ -2,7 +2,7 @@ import { DocumentIcon, CheckCircleIcon, XCircleIcon, WarningIcon, ClipboardIcon 
 
 export default function StatsCards({ stats }) {
     const cards = [
-        { key: 'total', label: 'Total Plans', sublabel: 'Managed Projects', icon: DocumentIcon, theme: 'indigo' },
+        { key: 'total', label: 'Test Suites', sublabel: 'Managed Projects', icon: DocumentIcon, theme: 'indigo' },
         { key: 'passed', label: 'Passed', sublabel: 'Test Cases', icon: CheckCircleIcon, theme: 'emerald' },
         { key: 'failed', label: 'Failed', sublabel: 'Test Cases', icon: XCircleIcon, theme: 'red' },
         { key: 'blocked', label: 'Blocked', sublabel: 'Test Cases', icon: WarningIcon, theme: 'amber' },
