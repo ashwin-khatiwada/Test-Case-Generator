@@ -31,8 +31,8 @@ Before setting up the project locally, ensure you have the following installed o
 
 1. **Clone the repository** (if applicable):
    ```bash
-   git clone <your-repository-url>
-   cd <repository-directory>
+   git clone https://github.com/ashwin-khatiwada/Test-Case-Generator.git
+   cd Test-Case-Generator
    ```
 
 2. **Navigate to the project directly** (if already on your machine):
