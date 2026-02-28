@@ -101,7 +101,7 @@ export default function TestCaseRow({ testCase, onChange, onDelete }) {
                     onChange={(e) => handleChange('status', e.target.value)}
                     className="w-full px-3 py-2 text-sm bg-slate-50 border border-slate-200 rounded-lg focus:border-[#079046] focus:bg-white transition-all h-[38px]"
                 >
-                    <option value="">Select</option>
+                    <option value="">Not Tested</option>
                     <option value="Passed">✓ Passed</option>
                     <option value="Failed">✗ Failed</option>
                     <option value="Blocked">⚠ Blocked</option>
