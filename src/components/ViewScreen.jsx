@@ -9,9 +9,13 @@ export default function ViewScreen({ plan, onBack, onEdit, onExportSuccess }) {
     const testCases = plan.testCases || [];
     const { passed, failed, blocked, notTested } = calculateStats(testCases);
 
-    const handleExport = () => {
-        exportTestPlanToExcel(plan);
-        onExportSuccess?.();
+    const handleExport = async () => {
+        try {
+            await exportTestPlanToExcel(plan);
+            onExportSuccess?.();
+        } catch (error) {
+            console.error('Export failed:', error);
+        }
     };
 
     return (
